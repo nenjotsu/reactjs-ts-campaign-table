@@ -7,8 +7,7 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import store from './redux/main.store';
 
-import 'antd/dist/antd.css';
-// import './styles.css';
+import 'antd/dist/antd.min.css';
 import './assets/css/main.scss';
 
 ReactDOM.render(

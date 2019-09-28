@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PublicRoutes from './public.routes';
 
@@ -25,7 +25,7 @@ const Routes: React.SFC<IBaseRoutes> = ({ isLoggedIn }) => {
   }, [isLoggedIn]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<div>Loading...</div>}>
       <Switch>
         {CombineRoutes.map((route: any) => (
           <Route
@@ -38,7 +38,7 @@ const Routes: React.SFC<IBaseRoutes> = ({ isLoggedIn }) => {
 
         {!isLoggedIn && <Route component={() => <h2>404 public</h2>} />}
       </Switch>
-    </Suspense>
+    </React.Suspense>
   );
 };
 

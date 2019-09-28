@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Router from './routes';
 import AppContext from './App.context';
 import Layout from 'components/Layout/Layout';
@@ -7,7 +7,7 @@ interface IAppState {
   isLoggedIn: boolean;
 }
 
-class App extends Component<{}, IAppState> {
+class App extends React.Component<{}, IAppState> {
   state = {
     isLoggedIn: false,
   };
