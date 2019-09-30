@@ -10,7 +10,7 @@ export const loadState = () => {
   }
 };
 
-const domain = 'http://54.255.174.15:911/api/v1/rest/campaigns';
+export const domain = 'http://54.255.174.15:911/api/v1/rest/campaigns';
 
 export const url = {
   getSingle: (id: string) => `${domain}/${id}`,
