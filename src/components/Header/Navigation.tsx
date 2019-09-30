@@ -13,19 +13,16 @@ const Navigation = () => {
           <Link to="/" className="link">
             Home
           </Link>
-          {/* <Link to="/test" className="link">
-            Test
-          </Link> */}
           <Link to="/about" className="link">
             About
           </Link>
           <Button className="action-button" onClick={onLogout}>
-            Logout
+            Exit
           </Button>
         </>
       ) : (
         <Button className="action-button" onClick={onLogin}>
-          Login
+          Start
         </Button>
       )}
     </div>

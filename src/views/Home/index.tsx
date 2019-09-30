@@ -1,147 +1,95 @@
 import * as React from 'react';
-import request from 'request';
 import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as lodash from 'lodash';
+import _get from 'lodash/get';
 import Modal from 'antd/lib/modal';
-import Button from 'antd/lib/button';
-import Radio from 'antd/lib/radio';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
 import * as actions from '../../redux/home/actions';
-import FlightCard from './components/FlightCard';
-import ViewCalendar from './components/Calendar';
-import { HomeProps, HomeState, FlightInfo } from './components/interface';
-import {
-  predefinedFlights,
-  DateFormat,
-  UpdatesPending,
-  UpdatesComplete,
-  blankFlightCard,
-  getOptionCreateSession,
-} from './components/constants';
+import AutoComplete from './components/AutoComplete';
+import DateRange from './components/DateRange';
+import CampaignTable from './components/CampaignTable';
+import { HomeProps, HomeState, IdataSource } from './components/interface';
+import { SpanConfig, formatDate, addCommas } from './components/constants';
 
 class Home extends React.Component<HomeProps, HomeState> {
   state = {
-    defaultPredefinedFlight: 'sinkul',
-    sessionKey: '',
-    modalFlightVisible: false,
-    flightInfo: predefinedFlights[0],
-    dateRangeItem: moment().format(DateFormat),
+    modalVisible: false,
+    currentCampaign: null,
   };
 
-  componentWillReceiveProps(nextProps: any) {
-    if (
-      this.state.sessionKey === nextProps.pollSession.SessionKey &&
-      nextProps.pollSession.Status === UpdatesPending
-    ) {
-      this.props.reduxAction.pollSessionEpic(this.state.sessionKey);
-    }
+  componentDidMount() {
+    const { reduxAction } = this.props;
+    reduxAction.getAllCampaignsEpic();
   }
 
-  setModalFlightVisible = (modalFlightVisible: boolean) => {
-    this.setState({ modalFlightVisible });
+  handleModalClose = () => {
+    this.setState({ modalVisible: false });
   };
 
-  handleViewFlight = (selectedDate: any) => (e: any) => {
-    e.preventDefault();
-
-    const flightInfo: FlightInfo | undefined = predefinedFlights.find(
-      f => f.id === this.state.defaultPredefinedFlight,
-    );
-
-    if (flightInfo) {
-      const dateRangeItem = moment(selectedDate).format(DateFormat);
-      this.setState({
-        flightInfo,
-        dateRangeItem,
-        modalFlightVisible: true,
-      });
-
-      let options = getOptionCreateSession(dateRangeItem, flightInfo);
-
-      request(options, (error, response) => {
-        if (error) throw new Error(error);
-        const split = lodash.get(response, 'headers.location').split('/');
-        const sessionKey: string = lodash.last(split) || '';
-        this.setState({ sessionKey });
-        this.props.reduxAction.pollSessionEpic(sessionKey);
-      });
-    }
+  handleSearch = (text: string) => {
+    const { reduxAction } = this.props;
+    reduxAction.findByNameCampaignEpic(text);
   };
 
-  dateCellRender = (value: any) => {
-    const from = moment().subtract(1, 'days');
-    const to = moment().add(30, 'days');
-
-    return (
-      value >= from &&
-      value <= to && (
-        <Button
-          onClick={this.handleViewFlight(value)}
-          type="primary"
-          shape="round"
-          icon="schedule"
-          size="small"
-        >
-          View Flights
-        </Button>
-      )
-    );
+  handleDateChange = (startDate: moment.Moment, endDate: moment.Moment) => {
+    const { reduxAction } = this.props;
+    reduxAction.changeDateRange({ startDate, endDate });
   };
 
-  handleFlightChange = (e: any) => {
-    e.preventDefault();
-    const value = e.target.value;
-    this.setState({
-      defaultPredefinedFlight: value,
-    });
+  handleGetAllCampaigns = () => {
+    const { reduxAction } = this.props;
+    reduxAction.getAllCampaignsEpic();
   };
 
-  handleFlightModalClose = () => {
-    this.props.reduxAction.pollSessionClearData();
-    this.setModalFlightVisible(false);
+  handleRowClick = (record: IdataSource) => {
+    this.setState({ currentCampaign: record, modalVisible: true });
   };
 
   render() {
-    const { defaultPredefinedFlight, flightInfo, dateRangeItem } = this.state;
-    const { pollSession, dataSource } = this.props;
+    const { currentCampaign } = this.state;
+    const { dataSource, isLoading } = this.props;
     return (
       <section>
-        <h1>Skyscanner Flight Search</h1>
-        <Radio.Group
-          value={defaultPredefinedFlight}
-          onChange={this.handleFlightChange}
-        >
-          <Radio.Button value="sinkul">SIN-KUL</Radio.Button>
-          <Radio.Button value="kulsin">KUL-SIN</Radio.Button>
-          <Radio.Button value="kulsfo">KUL-SFO</Radio.Button>
-        </Radio.Group>
+        <h1>Campaign List</h1>
+        <Row>
+          <Col {...SpanConfig}>
+            <DateRange
+              onDateChange={this.handleDateChange}
+              onReset={this.handleGetAllCampaigns}
+            />
+          </Col>
+          <Col {...SpanConfig}>
+            <AutoComplete onSearch={this.handleSearch} />
+          </Col>
+        </Row>
 
-        <ViewCalendar dateCellRender={this.dateCellRender} />
+        {dataSource && (
+          <CampaignTable
+            isLoading={isLoading}
+            dataSource={dataSource}
+            onRowClick={this.handleRowClick}
+          />
+        )}
 
         <Modal
-          title="Flight Prices"
+          title="Campaign"
           style={{ top: 20 }}
           width={350}
           maskClosable={false}
-          visible={this.state.modalFlightVisible}
-          onOk={this.handleFlightModalClose}
-          onCancel={this.handleFlightModalClose}
+          visible={this.state.modalVisible}
+          onOk={this.handleModalClose}
+          onCancel={this.handleModalClose}
         >
-          <h1>{flightInfo.title}</h1>
-          <h4>Date Selected: {dateRangeItem}</h4>
-          {pollSession.Status !== UpdatesComplete && (
-            <FlightCard
-              key={0}
-              status={UpdatesPending}
-              data={blankFlightCard}
-            />
-          )}
-          {lodash.map(dataSource, (data, index) => {
-            return (
-              <FlightCard key={index} status={pollSession.Status} data={data} />
-            );
-          })}
+          <h1>
+            {_get(currentCampaign, 'name')} {_get(currentCampaign, 'id')}
+          </h1>
+          <h4>
+            Start Date: {formatDate(_get(currentCampaign, 'startDate', ''))}
+          </h4>
+          <h4>End Date: {formatDate(_get(currentCampaign, 'endDate', ''))}</h4>
+          <h4>Budget: {addCommas(_get(currentCampaign, 'budget', ''))} USD</h4>
         </Modal>
       </section>
     );
@@ -151,7 +99,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 function mapStateToProps(state: any) {
   return {
     isLoading: state.ui.isLoading,
-    pollSession: state.home.pollSession,
     dataSource: state.home.dataSource,
   };
 }

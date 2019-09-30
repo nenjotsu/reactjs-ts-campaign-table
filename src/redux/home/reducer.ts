@@ -1,10 +1,16 @@
 import { handleActions } from 'redux-actions';
-import * as lodash from 'lodash';
-import { pollSessionSuccess, pollSessionClearData } from './actions';
+import moment from 'moment';
+import {
+  getAllCampaignsSuccess,
+  findByNameCampaignSuccess,
+  getAllCampaignsClearData,
+  changeDateRange,
+} from './actions';
 import Model from './model';
 
 interface HomeReducer {
   loading: boolean;
+  dataSource: any[];
 }
 
 interface CreateSession {
@@ -20,44 +26,50 @@ const getAction = (action: any) => {
   return action.toString();
 };
 
-const mapDataSource = (records: any) => {
-  const itineraries = lodash.get(records, 'Itineraries');
-  const agents = lodash.get(records, 'Agents');
-  const query = lodash.get(records, 'Query');
-  const mapItineraries = lodash.map(itineraries, itenerary => {
-    const pricingOptions = lodash.get(itenerary, 'PricingOptions[0]');
-    const agentId = lodash.get(pricingOptions, 'Agents[0]');
-    const agent = lodash.find(agents, agenct => agenct.Id === agentId);
-    return {
-      id: agent.Id,
-      price: pricingOptions.Price,
-      agentName: agent.Name,
-      agentImageUrl: agent.ImageUrl,
-      currency: query.Currency,
-      adults: query.Adults,
-      quoteAgeInMinutes: pricingOptions.QuoteAgeInMinutes,
-      deeplinkUrl: pricingOptions.DeeplinkUrl,
-    };
-  });
-
-  const sortByPrices = lodash.sortBy(mapItineraries, ['price']);
-
-  return sortByPrices;
-};
-
 export default handleActions<HomeReducer, Payload>(
   {
-    [getAction(pollSessionSuccess)]: (state, action: Payload) => ({
+    [getAction(getAllCampaignsSuccess)]: (state, action: Payload) => {
+      const newDataSource = action.payload.filter((record: any) => {
+        return moment(record.endDate) > moment(record.startDate);
+      });
+      return {
+        ...state,
+        dataSource: newDataSource,
+      };
+    },
+    [getAction(findByNameCampaignSuccess)]: (state, action: Payload) => {
+      const newDataSource = action.payload.filter((record: any) => {
+        return moment(record.endDate) > moment(record.startDate);
+      });
+      return {
+        ...state,
+        dataSource: newDataSource,
+      };
+    },
+    [getAction(changeDateRange)]: (state, action: Payload) => {
+      const isBetweenRange = (source: string) => (from: string, to: string) => {
+        return moment(source).isBetween(from, to);
+      };
+      const newDataSource = state.dataSource.filter((record: any) => {
+        const { startDate, endDate } = action.payload;
+        const isStartDateBetween = isBetweenRange(record.startDate)(
+          startDate,
+          endDate,
+        );
+
+        const isEndDateBetween = isBetweenRange(record.endDate)(
+          startDate,
+          endDate,
+        );
+        return isStartDateBetween || isEndDateBetween;
+      });
+      return {
+        ...state,
+        dataSource: newDataSource,
+      };
+    },
+    [getAction(getAllCampaignsClearData)]: state => ({
       ...state,
-      pollSession: action.payload,
-      dataSource:
-        action.payload.Status === 'UpdatesComplete'
-          ? mapDataSource(action.payload)
-          : [],
-    }),
-    [getAction(pollSessionClearData)]: state => ({
-      ...state,
-      pollSession: {},
       dataSource: [],
     }),
   },

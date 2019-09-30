@@ -1,14 +1,46 @@
 import { createAction } from 'redux-actions';
 import * as TYPE from './types';
 
-export const createSessionEpic = createAction(TYPE.CREATE_SESSION_EPIC);
-export const createSessionSuccess = createAction(TYPE.CREATE_SESSION_SUCCESS);
-export const createSessionCancel = createAction(TYPE.CREATE_SESSION_CANCEL);
-export const createSession = createAction(TYPE.CREATE_SESSION);
-export const createSessionClearData = createAction(TYPE.CREATE_SESSION_CLEAR);
+export const createCampaignEpic = createAction(TYPE.CREATE_CAMPAIGN_EPIC);
+export const createCampaignSuccess = createAction(TYPE.CREATE_CAMPAIGN_SUCCESS);
+export const createCampaignCancel = createAction(TYPE.CREATE_CAMPAIGN_CANCEL);
+export const createCampaignClearData = createAction(TYPE.CREATE_CAMPAIGN_CLEAR);
 
-export const pollSessionEpic = createAction(TYPE.POLL_SESSION_EPIC);
-export const pollSessionSuccess = createAction(TYPE.POLL_SESSION_SUCCESS);
-export const pollSessionCancel = createAction(TYPE.POLL_SESSION_CANCEL);
-export const pollSession = createAction(TYPE.POLL_SESSION);
-export const pollSessionClearData = createAction(TYPE.POLL_SESSION_CLEAR);
+export const getAllCampaignsEpic = createAction(TYPE.GET_ALL_CAMPAIGNS_EPIC);
+export const getAllCampaignsSuccess = createAction(
+  TYPE.GET_ALL_CAMPAIGNS_SUCCESS,
+);
+export const getAllCampaignsCancel = createAction(
+  TYPE.GET_ALL_CAMPAIGNS_CANCEL,
+);
+export const getAllCampaignsClearData = createAction(
+  TYPE.GET_ALL_CAMPAIGNS_CLEAR,
+);
+
+export const getSingleCampaignEpic = createAction(
+  TYPE.GET_SINGLE_CAMPAIGN_EPIC,
+);
+export const getSingleCampaignSuccess = createAction(
+  TYPE.GET_SINGLE_CAMPAIGN_SUCCESS,
+);
+export const getSingleCampaignCancel = createAction(
+  TYPE.GET_SINGLE_CAMPAIGN_CANCEL,
+);
+export const getSingleCampaignClearData = createAction(
+  TYPE.GET_SINGLE_CAMPAIGN_CLEAR,
+);
+
+export const findByNameCampaignEpic = createAction(
+  TYPE.FIND_BY_NAME_CAMPAIGN_EPIC,
+);
+export const findByNameCampaignSuccess = createAction(
+  TYPE.FIND_BY_NAME_CAMPAIGN_SUCCESS,
+);
+export const findByNameCampaignCancel = createAction(
+  TYPE.FIND_BY_NAME_CAMPAIGN_CANCEL,
+);
+export const findByNameCampaignClearData = createAction(
+  TYPE.FIND_BY_NAME_CAMPAIGN_CLEAR,
+);
+
+export const changeDateRange = createAction(TYPE.CHANGE_DATE_RANGE);
