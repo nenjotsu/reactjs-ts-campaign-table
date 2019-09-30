@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <section className="footer-section">
       <span>
-        <Link to="/about" className="link">
+        <a
+          href="https://github.com/nenjotsu/reactjs-ts-campaign-table"
+          className="link"
+          target="_open"
+        >
           nenjotsu &copy; 2019
-        </Link>
+        </a>
       </span>
     </section>
   );
