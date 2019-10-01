@@ -41,6 +41,9 @@ typings/
 
 # Optional npm cache directory
 .npm
+build
+__snapshots.*
+*.snap
 
 # Optional eslint cache
 .eslintcache
