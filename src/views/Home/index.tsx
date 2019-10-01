@@ -3,6 +3,8 @@ import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
+import Icon from 'antd/lib/icon';
+import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
@@ -41,6 +43,14 @@ class Home extends React.Component<HomeProps, HomeState> {
   handleGetAllCampaigns = () => {
     const { reduxAction } = this.props;
     reduxAction.getAllCampaignsEpic();
+  };
+
+  handleDeleteCampaign = () => {
+    const { reduxAction } = this.props;
+    const { currentCampaign } = this.state;
+    const id = _get(currentCampaign, '_id');
+    reduxAction.deleteCampaignEpic({ id });
+    this.setState({ modalVisible: false });
   };
 
   handleRowClick = (record: IdataSource) => {
@@ -90,6 +100,9 @@ class Home extends React.Component<HomeProps, HomeState> {
           </h4>
           <h4>End Date: {formatDate(_get(currentCampaign, 'endDate', ''))}</h4>
           <h4>Budget: {addCommas(_get(currentCampaign, 'budget', ''))} USD</h4>
+          <Button onClick={this.handleDeleteCampaign}>
+            <Icon type="delete" /> Delete
+          </Button>
         </Modal>
       </section>
     );

@@ -18,4 +18,9 @@ export const FIND_BY_NAME_CAMPAIGN_SUCCESS = '[find_by_name_campaign] Success';
 export const FIND_BY_NAME_CAMPAIGN_CANCEL = '[find_by_name_campaign] Cancel';
 export const FIND_BY_NAME_CAMPAIGN_CLEAR = '[find_by_name_campaign] Clear Data';
 
+export const DELETE_CAMPAIGN_EPIC = '[delete_campaign] Epic';
+export const DELETE_CAMPAIGN_SUCCESS = '[delete_campaign] Success';
+export const DELETE_CAMPAIGN_CANCEL = '[delete_campaign] Cancel';
+export const DELETE_CAMPAIGN_CLEAR = '[delete_campaign] Clear Data';
+
 export const CHANGE_DATE_RANGE = '[change_date_range]';

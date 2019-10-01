@@ -3,6 +3,7 @@ import moment from 'moment';
 import {
   getAllCampaignsSuccess,
   findByNameCampaignSuccess,
+  deleteCampaignSuccess,
   getAllCampaignsClearData,
   changeDateRange,
 } from './actions';
@@ -66,6 +67,15 @@ export default handleActions<HomeReducer, Payload>(
       return {
         ...state,
         dataSource: newDataSource,
+      };
+    },
+    [getAction(deleteCampaignSuccess)]: (state, action: Payload) => {
+      const newDataSource = state.dataSource.filter((record: any) => {
+        return record._id !== action.payload.id;
+      });
+      return {
+        ...state,
+        dataSource: [...newDataSource],
       };
     },
     [getAction(getAllCampaignsClearData)]: state => ({
