@@ -20,7 +20,7 @@ export const abbrNum = (number: number, decPlaces: number = 1) => {
   return finalString;
 };
 
-export const formatDate = (date: string) => moment(date).format('MM/DD/YYYY');
+export const formatDate = (date: string) => moment(date).format('DD/MM/YYYY');
 
 export const addCommas = (nStr: string) => {
   nStr += '';
