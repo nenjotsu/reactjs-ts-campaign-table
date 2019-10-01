@@ -12,19 +12,26 @@ describe('list of url', () => {
     const getSingle = helpers.url.getSingle('1111');
     expect(getSingle).toBe(`${helpers.domain}/1111`);
   });
-  it.skip('should have findByName function', () => {
+  it('should have findByName function', () => {
     const findByName = helpers.url.findByName('mobi');
-    expect(findByName).toBe(`${helpers.domain}find/mobi`);
+    expect(findByName).toBe(`${helpers.domain}/find/mobi`);
   });
-  it.skip('should have findByName function', () => {
-    const findByName = helpers.url.findByName('mobi');
-    expect(findByName).toBe(`${helpers.domain}find/mobi`);
+  it('should have delete function', () => {
+    const findByName = helpers.url.delete('222');
+    expect(findByName).toBe(`${helpers.domain}/222`);
   });
-  // export const url = {
-  //   getSingle: (id: string) => `${domain}/${id}`,
-  //   findByName: (name: string) => `${domain}/find/${name}`,
-  //   delete: (id: string) => `${domain}/${id}`,
-  //   patch: (id: string) => `${domain}/${id}`,
-  //   genericDomain: domain,
-  // };
+  it('should have patch function', () => {
+    const findByName = helpers.url.patch('333');
+    expect(findByName).toBe(`${helpers.domain}/333`);
+  });
+  it('should have genericDomain function', () => {
+    const findByName = helpers.url.genericDomain;
+    expect(findByName).toBe(`${helpers.domain}`);
+  });
+});
+
+describe('headersJson', () => {
+  it('should have content type property ', () => {
+    expect(helpers.headersJson).toMatchObject;
+  });
 });
