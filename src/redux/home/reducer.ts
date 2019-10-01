@@ -4,6 +4,7 @@ import {
   getAllCampaignsSuccess,
   findByNameCampaignSuccess,
   deleteCampaignSuccess,
+  updateCampaignSuccess,
   getAllCampaignsClearData,
   changeDateRange,
 } from './actions';
@@ -72,6 +73,20 @@ export default handleActions<HomeReducer, Payload>(
     [getAction(deleteCampaignSuccess)]: (state, action: Payload) => {
       const newDataSource = state.dataSource.filter((record: any) => {
         return record._id !== action.payload.id;
+      });
+      return {
+        ...state,
+        dataSource: [...newDataSource],
+      };
+    },
+    [getAction(updateCampaignSuccess)]: (state, action: Payload) => {
+      const newDataSource = state.dataSource.map((record: any) => {
+        if (record._id !== action.payload._id) {
+          return record;
+        }
+        return {
+          ...action.payload,
+        };
       });
       return {
         ...state,

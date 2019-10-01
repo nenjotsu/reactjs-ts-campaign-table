@@ -1,8 +1,6 @@
 import moment from 'moment';
 
-export const DateFormat: string = 'YYYY-MM-DD';
-export const UpdatesPending: string = 'UpdatesPending';
-export const UpdatesComplete: string = 'UpdatesComplete';
+export const DateFormat: string = 'DD/MM/YYYY';
 
 export const abbrNum = (number: number, decPlaces: number = 1) => {
   decPlaces = Math.pow(10, decPlaces);
@@ -20,7 +18,7 @@ export const abbrNum = (number: number, decPlaces: number = 1) => {
   return finalString;
 };
 
-export const formatDate = (date: string) => moment(date).format('MM/DD/YYYY');
+export const formatDate = (date: string) => moment(date).format(DateFormat);
 
 export const addCommas = (nStr: string) => {
   nStr += '';

@@ -76,6 +76,24 @@ export const deleteCampaign = (action$: any) =>
     ),
   );
 
+export const updateCampaign = (action$: any) =>
+  action$.pipe(
+    ofType(TYPES.UPDATE_CAMPAIGN_EPIC),
+    switchMap((action: any) =>
+      ajax
+        .patch(`${url.patch(action.payload.id)}`, action.payload, headersJson)
+        .pipe(
+          mergeMap(() => [
+            ACTION.updateCampaignSuccess(action.payload),
+            hideSpinner(),
+          ]),
+          takeUntil(action$.pipe(ofType(TYPES.UPDATE_CAMPAIGN_CANCEL))),
+          catchError(error => of(onErrorApi(error))),
+          startWith(showSpinner()),
+        ),
+    ),
+  );
+
 export default [
   createCampaign,
   getAllCampaigns,

@@ -10,23 +10,23 @@ describe('loadState', () => {
 describe('list of url', () => {
   it('should have getSingle function', () => {
     const getSingle = helpers.url.getSingle('1111');
-    expect(getSingle).toBe(`${helpers.domain}/1111`);
+    expect(getSingle).toEqual(`${helpers.domain}/1111`);
   });
   it('should have findByName function', () => {
     const findByName = helpers.url.findByName('mobi');
-    expect(findByName).toBe(`${helpers.domain}/find/mobi`);
+    expect(findByName).toEqual(`${helpers.domain}/find/mobi`);
   });
   it('should have delete function', () => {
     const findByName = helpers.url.delete('222');
-    expect(findByName).toBe(`${helpers.domain}/222`);
+    expect(findByName).toEqual(`${helpers.domain}/222`);
   });
   it('should have patch function', () => {
     const findByName = helpers.url.patch('333');
-    expect(findByName).toBe(`${helpers.domain}/333`);
+    expect(findByName).toEqual(`${helpers.domain}/333`);
   });
   it('should have genericDomain function', () => {
     const findByName = helpers.url.genericDomain;
-    expect(findByName).toBe(`${helpers.domain}`);
+    expect(findByName).toEqual(`${helpers.domain}`);
   });
 });
 
