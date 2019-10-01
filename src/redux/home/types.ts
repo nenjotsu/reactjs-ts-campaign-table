@@ -23,4 +23,9 @@ export const DELETE_CAMPAIGN_SUCCESS = '[delete_campaign] Success';
 export const DELETE_CAMPAIGN_CANCEL = '[delete_campaign] Cancel';
 export const DELETE_CAMPAIGN_CLEAR = '[delete_campaign] Clear Data';
 
+export const UPDATE_CAMPAIGN_EPIC = '[update_campaign] Epic';
+export const UPDATE_CAMPAIGN_SUCCESS = '[update_campaign] Success';
+export const UPDATE_CAMPAIGN_CANCEL = '[update_campaign] Cancel';
+export const UPDATE_CAMPAIGN_CLEAR = '[update_campaign] Clear Data';
+
 export const CHANGE_DATE_RANGE = '[change_date_range]';

@@ -9,16 +9,16 @@ configure({ adapter: new EnzymeAdapter() });
 describe('Test App root Methods', () => {
   const AppWrapper = shallow<App>(<App />);
   it('isLoggedIn initial state should be false', () => {
-    expect(AppWrapper.state('isLoggedIn')).toBe(false);
+    expect(AppWrapper.state('isLoggedIn')).toEqual(false);
   });
 
   it('Trigger handleLogin isLoggedIn state should be true', () => {
     AppWrapper.instance().handleLogin();
-    expect(AppWrapper.state('isLoggedIn')).toBe(true);
+    expect(AppWrapper.state('isLoggedIn')).toEqual(true);
   });
 
   it('Trigger handleLogout isLoggedIn state should be false', () => {
     AppWrapper.instance().handleLogout();
-    expect(AppWrapper.state('isLoggedIn')).toBe(false);
+    expect(AppWrapper.state('isLoggedIn')).toEqual(false);
   });
 });
