@@ -23,3 +23,55 @@ code {
 .ant-avatar {
   width: 70px;
 }
+
+.ant-table-tbody {
+  background: #ffffffb8;
+}
+
+.global-search-wrapper {
+  padding-right: 50px;
+}
+
+.global-search {
+  width: 100%;
+}
+
+.global-search.ant-select-auto-complete .ant-select-selection--single {
+  margin-right: -46px;
+}
+
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input:not(:last-child) {
+  padding-right: 62px;
+}
+
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.global-search-item {
+  display: flex;
+}
+
+.global-search-item-desc {
+  flex: auto;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.global-search-item-count {
+  flex: none;
+}
+
+.DateRangePicker {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+  z-index: 2;
+}
+
+.btn-reset {
+  height: 48px;
+  top: 3px;
+  left: 5px;
+}

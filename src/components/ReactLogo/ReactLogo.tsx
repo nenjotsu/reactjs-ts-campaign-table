@@ -1,7 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
 const ReactLogo = () => {
-  // https://codepen.io/heshamabdulzaher/pen/zPmWrM
   return (
     <section className="react-logo-section">
       <h1>React Logo | Animation</h1>

@@ -10,16 +10,14 @@ export const loadState = () => {
   }
 };
 
-const domain = 'https://jsonplaceholder.typicode.com';
-const flightSearchDomain =
-  'https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/pricing';
+export const domain = 'http://54.255.174.15:911/api/v1/rest/campaigns';
 
 export const url = {
-  posts: `${domain}/posts`,
-  comments: `${domain}/comments`,
-  createSession: `${flightSearchDomain}/v1.0`,
-  pollSession: (sessionkey: string) =>
-    `${flightSearchDomain}/uk2/v1.0/${sessionkey}?pageIndex=0&pageSize=10`,
+  getSingle: (id: string) => `${domain}/${id}`,
+  findByName: (name: string) => `${domain}/find/${name}`,
+  delete: (id: string) => `${domain}/${id}`,
+  patch: (id: string) => `${domain}/${id}`,
+  genericDomain: domain,
 };
 
 export const multiDispatch = ({ dispatch }: any) => (next: any) => (
@@ -43,12 +41,11 @@ export const retryStrategy = (errors: any) =>
 
 export const headersJson = {
   'Content-Type': 'application/json',
-  'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com',
-  'x-rapidapi-key': '58ZJm7qOgEmsh2dIqPpoXtpelIv2p1QVxRgjsngRKxYnw73Zok',
 };
 
-export const headers = {
-  'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com',
-  'x-rapidapi-key': '58ZJm7qOgEmsh2dIqPpoXtpelIv2p1QVxRgjsngRKxYnw73Zok',
-  'content-type': 'application/x-www-form-urlencoded',
-};
+export enum TypeActions {
+  epic = 'Epic',
+  success = 'Success',
+  cancel = 'Cancel',
+  clear = 'Clear',
+}

@@ -1,26 +1,26 @@
 export interface ReduxAction {
-  createSessionEpic: Function;
-  pollSessionEpic: Function;
-  pollSessionClearData: Function;
+  getAllCampaignsEpic: Function;
+  createCampaignEpic: Function;
+  findByNameCampaignEpic: Function;
+  changeDateRange: Function;
 }
 
 export interface HomeProps {
   reduxAction: ReduxAction;
-  pollSession: any;
-  dataSource: any[];
+  dataSource: IdataSource[];
+  isLoading: boolean;
 }
 
-export interface FlightInfo {
-  id: string;
-  from: string;
-  to: string;
-  title: string;
+export interface IdataSource {
+  _id: string;
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  budget: number;
 }
 
 export interface HomeState {
-  defaultPredefinedFlight: string;
-  sessionKey: string;
-  modalFlightVisible: boolean;
-  flightInfo: FlightInfo;
-  dateRangeItem: string;
+  modalVisible: boolean;
+  currentCampaign?: IdataSource | null;
 }
