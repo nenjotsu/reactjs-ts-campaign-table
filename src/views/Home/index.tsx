@@ -58,7 +58,7 @@ class Home extends React.Component<HomeProps, HomeState> {
   };
 
   render() {
-    const { currentCampaign } = this.state;
+    const { currentCampaign, modalVisible } = this.state;
     const { dataSource, isLoading } = this.props;
     return (
       <section>
@@ -88,7 +88,7 @@ class Home extends React.Component<HomeProps, HomeState> {
           style={{ top: 20 }}
           width={350}
           maskClosable={false}
-          visible={this.state.modalVisible}
+          visible={modalVisible}
           onOk={this.handleModalClose}
           onCancel={this.handleModalClose}
         >

@@ -21,37 +21,40 @@ class DateRange extends React.PureComponent<Props, any> {
   handleDateChange = ({ startDate, endDate }: any) => {
     this.setState({ startDate, endDate });
     if (startDate != null && endDate != null) {
-      this.props.onDateChange(startDate, endDate);
+      const { onDateChange } = this.props;
+      onDateChange(startDate, endDate);
     }
   };
 
   handleFocusChange = (focusedInput: any) => this.setState({ focusedInput });
 
   isOutsideRange = (day: moment.Moment) => {
-    if (moment(day) < moment().subtract(3, 'years')) {
-      return true;
-    }
-    return false;
+    const isDateLessThanThreeYears =
+      moment(day) < moment().subtract(3, 'years');
+
+    return isDateLessThanThreeYears ? true : false;
   };
 
   handleOnReset = () => {
-    this.props.onReset();
+    const { onReset } = this.props;
+    onReset();
   };
 
   render() {
+    const { startDate, endDate, focusedInput } = this.state;
     return (
       <div>
         <DateRangePicker
-          startDate={this.state.startDate}
+          startDate={startDate}
           startDateId="your_unique_start_date_id"
-          endDate={this.state.endDate}
+          endDate={endDate}
           endDateId="your_unique_end_date_id"
+          focusedInput={focusedInput}
           onDatesChange={this.handleDateChange}
-          focusedInput={this.state.focusedInput}
           onFocusChange={this.handleFocusChange}
-          showClearDates={true}
-          enableOutsideDays={true}
           isOutsideRange={this.isOutsideRange}
+          showClearDates
+          enableOutsideDays
         />
         <Button
           onClick={this.handleOnReset}

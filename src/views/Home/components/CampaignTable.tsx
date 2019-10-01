@@ -63,22 +63,20 @@ const CampaignTable: React.SFC<{
   dataSource: IdataSource | any;
   onRowClick: Function;
   isLoading: boolean;
-}> = props => {
+}> = ({ onRowClick, isLoading, dataSource }) => {
   return (
     <section>
       <Table
         rowKey="_id"
-        onRow={record => {
-          return {
-            onClick: event => {
-              event.preventDefault();
-              props.onRowClick(record);
-            },
-          };
-        }}
-        loading={props.isLoading}
+        onRow={record => ({
+          onClick: event => {
+            event.preventDefault();
+            onRowClick(record);
+          },
+        })}
+        loading={isLoading}
         columns={columns}
-        dataSource={props.dataSource}
+        dataSource={dataSource}
       />
     </section>
   );
