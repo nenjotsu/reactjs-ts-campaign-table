@@ -2,7 +2,7 @@
 
 reactjs-ts-campaign-table
 
-DEMO: https://vigorous-mirzakhani-5b2d20.netlify.com/
+[Demo](http://54.255.174.15:7374)
 
 ### Clone the repo:
 
@@ -15,13 +15,13 @@ $ git clone https://github.com/nenjotsu/reactjs-ts-campaign-table.git
 Step 1: Install dependencies
 
 ```bash
-$ yarn install
+$ npm install
 ```
 
 Step 2: Start the server
 
 ```bash
-$ yarn start
+$ npm start
 ```
 
 @nenjotsu 2019

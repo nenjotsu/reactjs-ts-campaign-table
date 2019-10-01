@@ -43,4 +43,9 @@ export const findByNameCampaignClearData = createAction(
   TYPE.FIND_BY_NAME_CAMPAIGN_CLEAR,
 );
 
+export const deleteCampaignEpic = createAction(TYPE.DELETE_CAMPAIGN_EPIC);
+export const deleteCampaignSuccess = createAction(TYPE.DELETE_CAMPAIGN_SUCCESS);
+export const deleteCampaignCancel = createAction(TYPE.DELETE_CAMPAIGN_CANCEL);
+export const deleteCampaignClearData = createAction(TYPE.DELETE_CAMPAIGN_CLEAR);
+
 export const changeDateRange = createAction(TYPE.CHANGE_DATE_RANGE);

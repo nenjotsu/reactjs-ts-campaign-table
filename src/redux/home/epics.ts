@@ -60,4 +60,25 @@ export const findByNameCampaign = (action$: any) =>
     ),
   );
 
-export default [createCampaign, getAllCampaigns, findByNameCampaign];
+export const deleteCampaign = (action$: any) =>
+  action$.pipe(
+    ofType(TYPES.DELETE_CAMPAIGN_EPIC),
+    switchMap((action: any) =>
+      ajax.delete(`${url.delete(action.payload.id)}`, headersJson).pipe(
+        mergeMap(() => [
+          ACTION.deleteCampaignSuccess(action.payload),
+          hideSpinner(),
+        ]),
+        takeUntil(action$.pipe(ofType(TYPES.DELETE_CAMPAIGN_CANCEL))),
+        catchError(error => of(onErrorApi(error))),
+        startWith(showSpinner()),
+      ),
+    ),
+  );
+
+export default [
+  createCampaign,
+  getAllCampaigns,
+  findByNameCampaign,
+  deleteCampaign,
+];

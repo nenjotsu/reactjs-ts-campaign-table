@@ -2,6 +2,7 @@ export interface ReduxAction {
   getAllCampaignsEpic: Function;
   createCampaignEpic: Function;
   findByNameCampaignEpic: Function;
+  deleteCampaignEpic: Function;
   changeDateRange: Function;
 }
 
